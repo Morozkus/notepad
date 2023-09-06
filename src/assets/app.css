@@ -4,8 +4,92 @@
     margin: 0;
     list-style: none;
     text-decoration: none;
+    outline: none;
+    border: none;
 }
 
 :root {
     font-size: 10px;
+}
+
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.folder-list {
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+}
+
+.folder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    min-width: 100px;
+
+    color: black;
+    font-weight: bold;
+
+    font-size: 1.6rem;
+
+    padding: 0 5px;
+
+    border-radius: 20px 20px 0 0;
+    cursor: pointer;
+}
+
+.active-folder {
+    height: 125px;
+
+}
+
+.notepad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 25px;
+
+    background-color: lightblue;
+
+    padding: 50px;
+    border-radius: 20px 0 0 0;
+}
+
+.folder-name-container {
+    grid-column: 1 / 3;
+    height: 60px;
+}
+
+.text-area-input {
+    resize: none;
+    outline: none;
+
+    height: 550px;
+    width: 100%;
+
+    padding: 75px 35px 0 35px;
+}
+
+.save-btn {
+    padding: 10px;
+    font-size: 1.6rem;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+
+.add-note-panel {
+    grid-column: 1 / 3;
+    display: flex;
+    gap: 25px;
+}
+
+.add-note-panel__item {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 10px 0;
 }
