@@ -1,0 +1,11 @@
+.noteAreaItem {
+    font-size: 3rem;
+    font-weight: 400;
+
+    list-style: inside;
+    cursor: pointer;
+}
+
+.noteAreaItemActive {
+    font-weight: bold;
+}

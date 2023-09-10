@@ -1,0 +1,9 @@
+.textAreaInput {
+    resize: none;
+    outline: none;
+
+    height: 550px;
+    width: 100%;
+
+    padding: 75px 35px 0 35px;
+}

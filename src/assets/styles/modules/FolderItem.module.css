@@ -1,0 +1,21 @@
+.folder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    min-width: 100px;
+
+    color: black;
+    font-weight: bold;
+
+    font-size: 1.6rem;
+
+    padding: 0 5px;
+
+    border-radius: 20px 20px 0 0;
+    cursor: pointer;
+}
+
+.folderActive {
+    height: 125px;
+}

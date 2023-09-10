@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
 import FolderItem from './FolderItem'
 import { IFolderNotes } from '../model/INote'
+import classes from '../assets/styles/modules/FolderList.module.css'
 
 interface FolderListProps {
     notepad: IFolderNotes[]
@@ -9,7 +10,7 @@ interface FolderListProps {
 
 const FolderList: FC<FolderListProps> = ({notepad, activeNoteFolder}) => {
   return (
-    <ul className="folder-list">
+    <ul className={classes.folderList}>
           {notepad.map((folder, index) => (
             <FolderItem
               index={index}

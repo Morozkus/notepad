@@ -1,24 +1,22 @@
 import React, { FC } from 'react'
-import { IFolderNotes } from '../model/INote'
-import { useAppDispatch } from '../hooks/redux'
-import { NoteSlice } from '../store/reducers/NoteSlice'
+import PageButton from './UI/Button/PageButton'
+import PageInput from './UI/Input/PageInput'
+import { InputWithReloadType } from '../hooks/useInput'
+import classes from '../assets/styles/modules/FolderMenu.module.css'
+import parseModule from '../hooks/parseModule'
 
 interface IFolderMenu {
+    valueFolderNameInput: InputWithReloadType,
     createFolder: React.MouseEventHandler<HTMLButtonElement>,
     deleteFolder: React.MouseEventHandler<HTMLButtonElement>,
-    activeFolder: IFolderNotes
 }
 
-const FolderMenu: FC<IFolderMenu> = ({ createFolder, deleteFolder, activeFolder }) => {
-
-    const dispatch = useAppDispatch()
-    const { renameFolder } = NoteSlice.actions
-
+const FolderMenu: FC<IFolderMenu> = ({ createFolder, deleteFolder, valueFolderNameInput }) => {
     return (
-        <div>
-            <button onClick={createFolder}>Создать папку</button>
-            <button onClick={deleteFolder}>Удалить папку</button>
-            <input type="text" value={activeFolder.folderTitle} onChange={e => dispatch(renameFolder(e.target.value))} />
+        <div className={parseModule([classes.folderMenu])}>
+            <PageButton onClick={createFolder}>Создать папку</PageButton>
+            <PageButton onClick={deleteFolder}>Удалить папку</PageButton>
+            <PageInput value={valueFolderNameInput.value} onChange={valueFolderNameInput.onChange} />
         </div>
     )
 }

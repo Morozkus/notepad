@@ -1,4 +1,7 @@
 import React, { FC } from 'react'
+import PageButton from './UI/Button/PageButton'
+import classses from '../assets/styles/modules/AddNotePanel.module.css'
+import parseModule from '../hooks/parseModule'
 
 interface AddNotePanelProps {
     createNoteInFolder: any,
@@ -8,9 +11,9 @@ interface AddNotePanelProps {
 
 const AddNotePanel: FC<AddNotePanelProps> = ({createNoteInFolder, isActiveNote, deleteActiveNote}) => {
   return (
-    <div className="add-note-panel">
-        <button className='add-note add-note-panel__item' onClick={createNoteInFolder}>Добавить запись</button>
-        {isActiveNote && <button className='del-note add-note-panel__item' onClick={deleteActiveNote}>Удалить текущую запись</button>}
+    <div className={parseModule([classses.addNotePanel, classses.addNotePanelChild])}>
+        <PageButton onClick={createNoteInFolder}>Добавить запись</PageButton>
+        {isActiveNote && <PageButton onClick={deleteActiveNote}>Удалить текущую запись</PageButton>}
       </div>
   )
 }

@@ -1,0 +1,5 @@
+.folderList {
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+}

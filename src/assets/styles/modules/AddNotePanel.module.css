@@ -1,0 +1,8 @@
+.addNotePanel {
+    display: flex;
+    gap: 25px;
+}
+
+.addNotePanelChild {
+    grid-column: 1 / 3;
+}

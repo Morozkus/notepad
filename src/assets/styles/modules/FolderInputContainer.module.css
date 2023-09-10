@@ -1,0 +1,6 @@
+.addNotePanelItem {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 10px 0;
+}
