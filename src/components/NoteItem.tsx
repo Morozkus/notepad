@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { INote } from '../model/INote'
 
 interface NoteItemProps {
-    setActiveNote: any
+    setActiveNote: React.MouseEventHandler<HTMLLIElement>
     note: INote
 }
 

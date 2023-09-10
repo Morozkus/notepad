@@ -8,19 +8,19 @@ type TError = { code: number, msg: string }
 
 interface INotePad {
     color: string,
-    activeNoteFolder: IFolderNotes,
-    activeNote: INote | null,
+    activeNoteFolder: number,
+    activeNote: number | null,
     folderLen: number,
-    error: TError | false,
+    error: TError | null,
     notepad: IFolderNotes[]
 }
 
 const initialState: INotePad = {
     color: colorFolderList[0],
-    activeNoteFolder: DEFAULTFOLDER,
+    activeNoteFolder: 0,
     activeNote: null,
     folderLen: 1,
-    error: false,
+    error: null,
     notepad: [
         DEFAULTFOLDER
     ]
@@ -35,72 +35,63 @@ export const NoteSlice = createSlice({
                 state.error = { code: 10, msg: 'Превышено количество папок' }
                 return
             }
-            state.error = false
+            state.error = null
             state.notepad.push({ id: Date.now(), noteLen: 1, folderTitle: `Папка ${state.folderLen}`, folderNotes: [] })
             state.folderLen += 1
         },
         deleteFolder(state) {
-            if (state.activeNoteFolder.id === DEFAULTFOLDER.id) {
+            if (state.notepad[state.activeNoteFolder].id === DEFAULTFOLDER.id) {
                 return
             }
-            state.notepad = state.notepad.filter(folder => folder.id !== state.activeNoteFolder.id)
-            state.activeNoteFolder = state.notepad[0]
+            state.notepad = state.notepad.filter(folder => folder.id !== state.notepad[state.activeNoteFolder].id)
+            state.activeNoteFolder = 0
         },
         renameFolder(state, payload: PayloadAction<string>) {
-            for (let i = 0; i < state.notepad.length; i++) {
-                if (state.notepad[i].id === state.activeNoteFolder.id) {
-                    state.activeNoteFolder.folderTitle = payload.payload
-                    state.notepad[i] = state.activeNoteFolder
-                }
-            }
+            state.notepad[state.activeNoteFolder].folderTitle = payload.payload
         },
         renameNote(state, payload: PayloadAction<string>) {
-            if (state.activeNote?.title) {
-                state.activeNote.title = payload.payload
+            if ((state.activeNote || state.activeNote === 0) && state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].title) {
+                if (payload.payload === '') return
+                state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].title = payload.payload
             }
         },
         createNoteInFolder(state) {
-            for (let i = 0; i < state.notepad.length; i++) {
-                if (state.notepad[i].id === state.activeNoteFolder.id) {
-                    state.activeNoteFolder.folderNotes.push({ id: Date.now() + state.notepad[i].id, title: `Записка ${state.activeNoteFolder.noteLen}`, text: '' })
-                    state.activeNoteFolder.noteLen += 1
-                    state.notepad[i] = state.activeNoteFolder
-                }
-            }
+            state.notepad[state.activeNoteFolder].folderNotes.push({ id: Date.now() + state.notepad[state.activeNoteFolder].id, title: `Записка ${state.notepad[state.activeNoteFolder].noteLen}`, text: '' })
+            state.notepad[state.activeNoteFolder].noteLen += 1
         },
         deleteNoteInFolder(state) {
-            for (let i = 0; i < state.notepad.length; i++) {
-                if (state.notepad[i].id === state.activeNoteFolder.id) {
-                    state.activeNoteFolder.folderNotes = state.activeNoteFolder.folderNotes.filter(note => note.id !== state.activeNote?.id)
-                    state.notepad[i].folderNotes = state.activeNoteFolder.folderNotes
-                }
-            }
+            state.notepad[state.activeNoteFolder].folderNotes = state.notepad[state.activeNoteFolder].folderNotes
+                .filter(note => (state.activeNote || state.activeNote === 0) && note.id !== state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].id)
             state.activeNote = null
         },
         setActiveFolder(state, payload: PayloadAction<number>) {
             for (let i = 0; i < state.notepad.length; i++) {
 
-                if(state.activeNoteFolder.id === payload.payload) return
+                if (state.notepad[state.activeNoteFolder].id === payload.payload) return
 
                 if (state.notepad[i].id === payload.payload) {
-                    state.activeNoteFolder = state.notepad[i]
+                    state.activeNoteFolder = i
+                    state.activeNote = null
                     state.color = colorFolderList[i]
                 }
             }
         },
         setActiveNote(state, payload: PayloadAction<number>) {
-            for (let i = 0; i < state.activeNoteFolder.folderNotes.length; i++) {
-                if (state.activeNoteFolder.folderNotes[i].id === payload.payload) {
-                    state.activeNote = state.activeNoteFolder.folderNotes[i]
+            for (let i = 0; i < state.notepad[state.activeNoteFolder].folderNotes.length; i++) {
+                if (state.notepad[state.activeNoteFolder].folderNotes[i].id === payload.payload) {
+                    state.activeNote = i
                     return
                 }
             }
             state.activeNote = null
         },
         setNoteText(state, payload: PayloadAction<string>) {
-            if (state.activeNote) {
-                state.activeNote.text = payload.payload
+            if (state.activeNote || state.activeNote === 0) {      
+                state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].text = payload.payload
             }
+        },
+        setNullError(state) {
+            state.error = null
         }
     }
 })

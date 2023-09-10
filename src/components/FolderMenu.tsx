@@ -4,8 +4,8 @@ import { useAppDispatch } from '../hooks/redux'
 import { NoteSlice } from '../store/reducers/NoteSlice'
 
 interface IFolderMenu {
-    createFolder: any,
-    deleteFolder: any,
+    createFolder: React.MouseEventHandler<HTMLButtonElement>,
+    deleteFolder: React.MouseEventHandler<HTMLButtonElement>,
     activeFolder: IFolderNotes
 }
 

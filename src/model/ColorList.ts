@@ -1,12 +1,12 @@
 export const colorFolderList = [
-    'lightgreen',
-    'rgba(199, 203, 179, 1)',
-    'rgba(141, 132, 122, 1)',
+    'rgba(190, 212, 184, 1)',
+    'rgba(221, 178, 137, 1)',
+    'rgba(132, 127, 105, 1)',
     'rgba(211, 177, 145, 1)',
-    'lightgray',
-    'lightblue',
+    'rgba(173, 215, 162, 1)',
+    'rgba(219, 196, 175, 1)',
     'rgba(219, 234, 215, 1)',
-    'pink',
-    'bisque',
-    'mediumslateblue'
+    'rgba(144, 154, 142, 1)',
+    'rgba(194, 169, 146, 1)',
+    'rgba(217, 217, 217, 1)'
 ]
