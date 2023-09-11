@@ -1,11 +1,17 @@
 .noteAreaItem {
     font-size: 3rem;
     font-weight: 400;
-
+    padding: 5px;
     list-style: inside;
     cursor: pointer;
 }
 
 .noteAreaItemActive {
     font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+    .noteAreaItem {
+        font-size: 1.3rem;
+    }
 }

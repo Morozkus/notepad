@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { INote, IFolderNotes } from '../../model/INote'
+import { IFolderNotes } from '../../model/INote'
 import { colorFolderList } from '../../model/ColorList'
 
 const DEFAULTFOLDER: IFolderNotes = { id: Date.now(), noteLen: 1, folderTitle: 'Default Folder', folderNotes: [] }
@@ -45,13 +45,21 @@ export const NoteSlice = createSlice({
             }
             state.notepad = state.notepad.filter(folder => folder.id !== state.notepad[state.activeNoteFolder].id)
             state.activeNoteFolder = 0
+            state.color = colorFolderList[0]
         },
         renameFolder(state, payload: PayloadAction<string>) {
+            if (payload.payload === '' || payload.payload.length > 32) {
+                state.error = {code: 7, msg: 'Количество символов в имени файла или папки должно быть больше 2 и меньше 32'}
+                return
+            }
             state.notepad[state.activeNoteFolder].folderTitle = payload.payload
         },
         renameNote(state, payload: PayloadAction<string>) {
             if ((state.activeNote || state.activeNote === 0) && state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].title) {
-                if (payload.payload === '') return
+                if (payload.payload === '' || payload.payload.length > 32) {
+                    state.error = {code: 7, msg: 'Количество символов в имени файла или папки должно быть больше 2 и меньше 32'}
+                    return
+                }
                 state.notepad[state.activeNoteFolder].folderNotes[state.activeNote].title = payload.payload
             }
         },

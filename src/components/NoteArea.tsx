@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { InputWithReloadType } from '../hooks/useInput'
 import classes from '../assets/styles/modules/NoteArea.module.css'
+import folderClasses from '../assets/styles/modules/FolderPage.module.css'
 
 interface NoteAreaProps {
     valueTextArea: InputWithReloadType,
@@ -9,7 +10,7 @@ interface NoteAreaProps {
 
 const NoteArea: FC<NoteAreaProps> = ({valueTextArea, isActiveNote}) => {
     return (
-        <div className="text-area">
+        <div className={folderClasses.textArea}>
             <textarea
                 className={classes.textAreaInput}
                 name={classes.textAreaInput}
